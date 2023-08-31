@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <title>Virtual Exhibition</title>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <script src="../javascript/jquery-1.9.1.min.js"></script>
+
+
+</head>
+
+<body class="text-center">
+<div>
+    <div class="container">
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+            <div class="row">
+                <div class="col-sm">
+                    <a href="/web/welcome.html" class="btn btn-primary" role="button">Back</a>
+                    <a href="/web/loginArtist.html" class="btn btn-primary" role="button">Artist</a>
+                    <a href="/web/loginAdmin.html" class="btn btn-primary" role="button">Admin</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-sm">
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        Virtual Exhibition
+                    </h1>
+                    <p>A best experience for you</p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card border-0">
+                        <div class="card-body py-5 px-md-5">
+
+                            <form id="loginForm" action="index.html" role="form" class="was-validated">
+                                <!--警告栏-->
+                                <div class="alert alert-dismissible fade" role="alert" style="display:none;">
+                                    <span></span>
+                                </div>
+                                <!--用户名-->
+                                <div class="form-floating my-3">
+                                    <input type="text" name="username" class="form-control user-select-none shadow"
+                                           id="username"
+                                           placeholder="Enter the username here." required>
+                                    <label for="username">Username</label>
+                                    <div class="invalid-feedback">Please fill in the username.</div>
+                                </div>
+                                <!--密码-->
+                                <div class="form-floating">
+                                    <input type="password" name="password" class="form-control user-select-none shadow"
+                                           id="password"
+                                           placeholder="Enter the password here." required>
+                                    <label for="password">Password</label>
+                                    <div class="invalid-feedback">Please fill in the password.</div>
+                                </div>
+                                <!--忘记密码-->
+                                <div class="container text-end mt-2">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                        </div>
+                                        <div class="col-sm">
+                                            <a href="/web/resetPassword.html" class="link-secondary">Forget
+                                                password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--登录按钮-->
+                                <div style="text-align:center">
+                                    <input id="loginButton" type="button" class="btn btn-primary mt-5 w-50"
+                                           value="Login"/>
+                                </div>
+
+
+                            </form>
+                        </div>
+
+
+                        <!--注册链接-->
+                        <div class="my-5" style="text-align:center">
+                            <small class="p-3">Need an account?</small><a href="/web/register.html">Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+        $("#loginButton").click(function () {
+            $.ajax({
+                url: "/user/login",
+                type: "POST",
+                data: $("#loginForm").serialize(),
+                dataType: "JSON",
+                success: function (json) {
+                    if (json.state == 200) {
+                        location.href = "/web/index.html";
+                    } else if(json.state == 402) {
+                        bootstrapAlert("warning", "Password is not correct.")
+                    } else if(json.state == 401) {
+                        bootstrapAlert("warning", "Username does not exist.")
+                    }
+                },
+                error: function (xhr) {
+                    bootstrapAlert("danger", "Ops, something wrong happened!");
+                }
+            });
+        });
+
+        function bootstrapAlert(msg_type, msg_body) {
+            var AlertMsg = $('div[role="alert"]');
+            $(AlertMsg).find('span').html(msg_body);
+            $(AlertMsg).removeAttr('class');
+            $(AlertMsg).addClass('alert alert-dismissible alert-' + msg_type);
+            $(AlertMsg).fadeIn('fast');
+            $(AlertMsg).show();
+        }
+
+
+</script>
+</body>
+</html>

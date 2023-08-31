@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Page</title>
+    <script src="../javascript/jquery-1.9.1.min.js"></script>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="../css/login.css"/>
+</head>
+
+<body class="text-center">
+
+<div>
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start">
+        <div class="col-sm">
+            <a class="btn btn-primary" herf="#" onClick="javascript:window.history.back();" role="button">Back</a>
+        </div>
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <!--标题和返回键-->
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        Virtual Exhibition <br/>
+                    </h1>
+                    <p>For new sign up
+                    </p>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <div class="container ">
+                                <form id="signForm" role="form" class="was-validated" novalidate>
+                                    <!--警告栏-->
+                                    <div class="alert alert-dismissible fade" role="alert" style="display:none;">
+                                        <span></span>
+                                    </div>
+                                    <!--用户名-->
+                                    <div class="form-floating my-3">
+                                        <input type="text" name="username" class="form-control user-select-none shadow"
+                                               id="username"
+                                               placeholder="Enter the username here." required>
+                                        <label for="username">Username</label>
+                                        <div class="invalid-feedback">Please fill in the username.</div>
+                                    </div>
+                                    <!--密码-->
+                                    <div class="form-floating my-3">
+                                        <input type="password" name="password"
+                                               class="form-control user-select-none shadow"
+                                               id="password"
+                                               placeholder="Enter the password here." required>
+                                        <label for="password">Password</label>
+
+                                        <div class="invalid-feedback">Please fill in the password.</div>
+                                    </div>
+
+                                    <!--确认密码-->
+                                    <div class="form-floating my-3">
+                                        <input type="password" name="confirmPassword"
+                                               class="form-control user-select-none shadow" id="confirmPassword"
+                                               placeholder="Confirm the password here." required>
+                                        <label for="confirmPassword">Confirm Password</label>
+                                        <div class="form-text confirm-message"></div>
+                                    </div>
+
+                                    <!--电话-->
+                                    <div class="form-floating my-3">
+                                        <input type="text" name="phone" class="form-control user-select-none shadow"
+                                               id="phone"
+                                               placeholder="Enter the phone number (10 length) here." required>
+                                        <label for="phone">Phone</label>
+
+                                        <div class="invalid-feedback">Please fill in the phone.</div>
+                                    </div>
+
+                                    <!--邮箱-->
+                                    <div class="form-floating">
+                                        <input type="email" name="email" class="form-control user-select-none shadow"
+                                               id="email"
+                                               placeholder="Enter the email here." required>
+                                        <label for="email">Email</label>
+
+                                        <div class="invalid-feedback">Please fill in the email like this: xxx@email.com
+                                        </div>
+                                    </div>
+
+                                    <!--登录按钮-->
+                                    <div style="text-align:center">
+                                        <input id="submitButton" type="button" class="btn btn-primary mt-5 w-50"
+                                               disabled
+                                               value="Submit"/>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!--登录链接-->
+                            <div class="my-5" style="text-align:center">
+                                <small class="p-3">Already have an account?</small><a href="/web/login.html">Login</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    $('#password, #confirmPassword').on('keyup', function(){
+
+        $('.confirm-message').removeClass('success-message').removeClass('error-message');
+
+        let password=$('#password').val();
+        let confirm_password=$('#confirmPassword').val();
+
+        if(password===""){
+            $('.confirm-message').text("Password Field cannot be empty").addClass('error-message');
+            document.getElementById("submitButton").disabled=true;
+            return false;
+        }
+        else if(confirm_password===""){
+            $('.confirm-message').text("Confirm Password Field cannot be empty").addClass('error-message');
+            document.getElementById("submitButton").disabled=true;
+            return false;
+        }
+        else if(confirm_password===password)
+        {
+            $('.confirm-message').text('Password Match!').addClass('success-message');
+            bootstrapAlert("success","Password Match!")
+            document.getElementById("submitButton").disabled=false;
+            return true;
+        }
+        else{
+            bootstrapAlert("warning","Password Doesn't Match!");
+            $('.confirm-message').text("Password Doesn't Match!").addClass('error-message');
+            document.getElementById("submitButton").disabled=true;
+            return false;
+        }
+    });
+
+    $("#submitButton").click(function () {
+        $.ajax({
+            url: "/user/signUp",
+            type: "POST",
+            data: $("#signForm").serialize(),
+            dataType: "JSON",
+            success: function (json) {
+                if (json.state == 200) {
+                    alert("User register successfully.")
+                    location.href = "/web/login.html";
+                } else if(json.state == 400) {
+                    bootstrapAlert("warning","Username is used.")
+                } else if(json.state == 405) {
+                    bootstrapAlert("warning","Username is empty.")
+                }
+            },
+            error: function (xhr) {
+                bootstrapAlert("danger", "Ops, something wrong!");
+            }
+        });
+    });
+
+    function bootstrapAlert(msg_type, msg_body) {
+            var AlertMsg = $('div[role="alert"]');
+            $(AlertMsg).find('span').html(msg_body);
+            $(AlertMsg).removeAttr('class');
+            $(AlertMsg).addClass('alert alert-dismissible alert-' + msg_type);
+            $(AlertMsg).fadeIn('fast');
+            $(AlertMsg).show();
+        }
+
+    </script>
+    <style>
+        .success-message{
+            color:green
+        }
+        .error-message{
+            color:red;
+        }
+    </style>
+
+</body>
+</html>

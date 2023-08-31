@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.project.virtualExhibition.mapper.ArtistMapper">
+
+    <resultMap id="ArtistMap" type="com.project.virtualExhibition.entity.Artist">
+        <id column="id" property="id"></id>
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO artist(username, password, salt, phone, email
+        ) VALUES (
+        #{username}, #{password}, #{salt}, #{phone}, #{email}
+        )
+    </insert>
+
+
+    <select id="findByUsername" resultMap="ArtistMap">
+        SELECT * FROM artist WHERE username = #{username}
+    </select>
+
+    <update id="reset">
+        UPDATE artist SET password = #{password} WHERE username = #{username}
+    </update>
+
+    <select id="findById" resultMap="ArtistMap">
+        SELECT * FROM artist WHERE id = #{id}
+    </select>
+
+    <update id="updateInfoById">
+        UPDATE artist SET <if test="phone != null">phone = #{phone},</if> <if test="email != null">email = #{email}</if> WHERE id = #{id}
+    </update>
+
+</mapper>

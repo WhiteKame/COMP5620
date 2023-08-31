@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exhibit List</title>
+
+    <!--<link rel="stylesheet" href="/css/index.css">-->
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+    <!-- jQThumb缩略图插件 -->
+    <script type="text/javascript" src="${APP_PATH}/static/js/jqthumb.min.js"></script>
+
+
+</head>
+<body>
+<!--header-->
+<div>
+    <div class="container mt-3">
+        <nav class="navbar sticky-top navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand mb-0 h1" href="/index">Virtual Exhibition</a>
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+
+                    <a class="btn btn-primary" href="/web/information.html" role="button">Account</a>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</div>
+
+
+
+<!--Exhibit -->
+    <div class="bg-1">
+        <div class="container">
+            <h3 class="text-center">Impressionism</h3>
+            <p class="text-center">Description<br>
+                Impressionism was a 19th-century art movement characterized by relatively small, thin, yet visible brush strokes, open composition, emphasis on accurate depiction of light in its changing qualities (often accentuating the effects of the passage of time), ordinary subject matter, unusual visual angles, and inclusion of movement as a crucial element of human perception and experience. Impressionism originated with a group of Paris-based artists whose independent exhibitions brought them to prominence during the 1870s and 1880s.
+            </p>
+            <br>
+            <br>
+            <!--Exhibit list-->
+            <div class="row text-center">
+                <div class="container my-5">
+                    <div class="row row-cols-auto gx-5 gy-3">
+                        <div class="col">
+                            <div class="shadow card rounded h-100" style="width:18rem; height:30rem;">
+                                <img src="../images/Woman with a Parasol.jpg" class="card-img-top shadow rounded" class="img-responsive" onload="DrawImage(this)"
+                                     alt="Woman with a Parasol">
+                                <div class="card-body mt-3">
+                                    <h5 class="card-title">Woman with a Parasol</h5>
+                                    <div class="position-absolute bottom-0 start-50 translate-middle-x mb-2">
+                                        <a href="#" class="btn btn-primary">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card shadow rounded h-100" style="width:18rem; height:30rem;">
+                                <img src="../images/Water Lilies and Japanese Bridge.jpg" class="card-img-top" class="img-responsive" onload="DrawImage(this)"
+                                     alt="Water Lilies and Japanese Bridge">
+                                <div class="card-body mt-3">
+                                    <h5 class="card-title">Cart title</h5>
+                                    <div class="position-absolute bottom-0 start-50 translate-middle-x mb-2">
+                                        <a href="#" class="btn btn-primary">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100" style="width:18rem; height:30rem;">
+                                <img src="../images/TheSwing.jpg" class="card-img-top" class="img-responsive" onload="DrawImage(this)"
+                                     alt="TheSwing" >
+                                <div class="card-body mt-3">
+                                    <h5 class="card-title">Cart title</h5>
+                                    <a href="#" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100" style="width:18rem; height:30rem;">
+                                <img src="../images/TheGardenParasol.jpg" class="card-img-top" class="img-responsive" onload="DrawImage(this)"
+                                     alt="TheGardenParasol">
+                                <div class="card-body mt-3">
+                                    <h5 class="card-title">Cart title</h5>
+                                    <a href="#" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100" style="width:18rem; height:30rem;">
+                        <img src="../images/TheGardenParasol.jpg" class="card-img-top" alt="TheGardenParasol">
+                        <div class="card-body mt-3">
+                            <h5 class="card-title">Cart title</h5>
+                            <a href="#" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+     </div>
+    <div>
+
+<script>
+    //处理缩略图
+    function DrawImage(hotimg){
+        $(hotimg).jqthumb({
+            width : '100%',//宽度
+            height : '142px',//高度
+            //position : { y: '50%', x: '50%'},//从图片的中间开始产生缩略图
+            zoom : '1',//缩放比例
+            method : 'auto'//提交方法，用于不同的浏览器环境，默认为‘auto’
+        });
+    }
+</script>
+
+
+
+
+</body>
+</html>

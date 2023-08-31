@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exhibit List</title>
+
+    <!--<link rel="stylesheet" href="/css/index.css">-->
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+<form action="@{/exhibit/add}" method="post" enctype="multipart/form-data">
+    <label for="validationTitle" class="form-label">Title</label>
+    <input class="form-control" id="validationTitle" type="text" th:value="${title}" name="title"
+           required>
+    <div class="invalid-feedback">The title cannot be empty!</div>
+    <label class="form-label">Content</label>
+
+
+    <textarea class="form-control" rows="15" th:value="${content}" name="content"></textarea>
+    <label class="form-label">Year</label>
+    <input class="form-control"  type="text" th:value="${year}" name="year"
+           required>
+    </div>
+    <label class="col-md-2 control-label">选择头像:</label>
+
+    <div class="clearfix"></div>
+    <div class="col-md-offset-2 col-md-4">
+        <input type="file" name="image">
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-success ">Save</button>
+    </div>
+</form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.project.virtualExhibition.mapper.AllExhibitMapper">
+
+    <resultMap id="AllExhibitMap" type="com.project.virtualExhibition.entity.AllExhibit">
+        <id column="id" property="id"></id>
+        <id column="artistId" property="artist_id"></id>
+    </resultMap>
+
+    <select id="findAlready" resultMap="AllExhibitMap">
+        SELECT e.id, e.artist_id, e.status, e.title, e.year, a.username FROM exhibit_management e, artist a WHERE a.id = e.artist_id and status = 1
+    </select>
+
+    <select id="findRequest" resultMap="AllExhibitMap">
+        SELECT e.id, e.artist_id, e.status, e.title, e.year, a.username FROM exhibit_management e, artist a WHERE a.id = e.artist_id AND status = 0
+    </select>
+</mapper>

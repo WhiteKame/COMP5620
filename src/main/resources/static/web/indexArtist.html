@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Artist</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="../css/list.css"/>
+</head>
+<body>
+<!--navbar-->
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand mb-0 h1" href="/web/index.html">Virtual Exhibition</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" href="/web/indexArtist">In progress</a>
+                <a class="nav-link" href="/web/indexArtistAlready">Already</a>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-end">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Subscribe Exhibits
+            </button>
+            <a class="btn btn-primary" href="/web/informationArtist" role="button">Account</a>
+        </div>
+    </div>
+</nav>
+
+<!-- 上传的艺术品 -->
+<div class="d-flex justify-content-center my-4">
+    <h2>My Artworks</h2>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+    <div class="col-sm-8 text-center ">
+        <div class="col-sm- bg-light p-3 border rounded ">
+            <!-- 艺术品列表 -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Art Year</th>
+                    <th scope="col">Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="exhibit: ${exhibitsAlready}">
+                    <th scope="row" th:text="${exhibit.id}">1</th>
+                    <td th:text="${exhibit.title}">123</td>
+                    <td th:text="${exhibit.year}">2022</td>
+                    <td>
+                        <a class="btn btn-danger" th:href="@{'/delete/'+${exhibit.id}}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Subscribe new exhibit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/add" method="post">
+            <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="validationTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="validationTitle" th:value="${title}" name="title"
+                               required>
+                        <div class="invalid-feedback">The title cannot be empty!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contentinput" class="form-label">Content</label>
+                        <textarea class="form-control" id="contentinput" rows="10" th:value="${content}"
+                                  name="content"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="yearInput" class="form-label">Year</label>
+                        <input type="text" class="form-control" id="yearInput" th:value="${year}" name="year"
+                               required>
+                        <div class="invalid-feedback">The title cannot be empty!</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload the exhibit</label>
+                        <input class="form-control" type="file" id="formFile" name="image">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-success">Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

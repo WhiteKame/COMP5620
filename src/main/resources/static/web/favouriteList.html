@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+            crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="../css/list.css"/>
+</head>
+<body>
+<!--navbar-->
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand mb-0 h1" href="/web/index.html">Virtual Exhibition</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" aria-current="page" href="/web/index.html">Home</a>
+                <a class="nav-link active" href="/web/list">List</a>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-end">
+            <a class="btn btn-primary" href="/web/information">Account</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <div class="row row-cols-auto gx-5 gy-3">
+        <div class="col" th:each="collect: ${collect}">
+            <div class="shadow card rounded h-100" style="width:18rem; height:30rem;">
+                <img th:src="${collect.image}" class="card-img-top shadow rounded img-thumbnail artImage" th:alt="${collect.title}">
+                <div class="card-body mt-3">
+                    <h5 class="card-title" th:text="${collect.title}">Title</h5>
+                    <p class="card-text" th:text="${collect.artist}">Artist</p>
+                    <a th:href="@{/web/detail/{id}(id=${collect.art_id})}" class="btn btn-primary" role="button">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div th:each="collect: ${collect}">-->
+<!--<div th:each="${collect.user_id"}></div>-->
+<!--<div th:each="${collect.art_id"}></div>-->
+<!--</div>-->
+</body>
+</html>
